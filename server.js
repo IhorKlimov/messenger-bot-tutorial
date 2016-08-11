@@ -162,7 +162,7 @@ var taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
 var taskList = new TaskList(taskDao);
 taskDao.init();
 
-app.get('/', taskList.showTasks.bind(taskList));
+app.get('/show', taskList.showTasks.bind(taskList));
 app.post('/addtask', taskList.addTask.bind(taskList));
 app.post('/completetask', taskList.completeTask.bind(taskList));
 
