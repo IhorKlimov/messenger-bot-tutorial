@@ -58,7 +58,7 @@ TaskList.prototype = {
         throw (err);
       }
 
-      res.send(items[0].date);
+      res.send(items);
     });
   },
 
