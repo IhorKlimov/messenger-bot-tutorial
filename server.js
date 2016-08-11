@@ -162,9 +162,10 @@ var taskDao = new TaskDao(docDbClient, config.databaseId, config.collectionId);
 var taskList = new TaskList(taskDao);
 taskDao.init();
 
-app.get('/show', taskList.showTasks.bind(taskList));
+app.get('/', taskList.showTasks.bind(taskList));
 app.post('/addtask', taskList.addTask.bind(taskList));
 app.post('/completetask', taskList.completeTask.bind(taskList));
+app.post('/just', taskList.justGet.bind(taskList));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

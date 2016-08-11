@@ -6,7 +6,7 @@ function TaskList(taskDao) {
 }
 
 TaskList.prototype = {
-  showTasks: function(req, res) {
+  showTasks: function (req, res) {
     var self = this;
 
     var querySpec = {
@@ -17,7 +17,7 @@ TaskList.prototype = {
       }]
     };
 
-    self.taskDao.find(querySpec, function(err, items) {
+    self.taskDao.find(querySpec, function (err, items) {
       if (err) {
         throw (err);
       }
@@ -29,11 +29,11 @@ TaskList.prototype = {
     });
   },
 
-  addTask: function(req, res) {
+  addTask: function (req, res) {
     var self = this;
     var item = req.body;
 
-    self.taskDao.addItem(item, function(err) {
+    self.taskDao.addItem(item, function (err) {
       if (err) {
         throw (err);
       }
@@ -42,12 +42,32 @@ TaskList.prototype = {
     });
   },
 
-  completeTask: function(req, res) {
+  justGet: function (req, res) {
+    var self = this;
+
+    var querySpec = {
+      query: 'SELECT * FROM root r WHERE r.completed=@completed',
+      parameters: [{
+        name: '@completed',
+        value: false
+      }]
+    };
+
+    self.taskDao.find(querySpec, function (err, items) {
+      if (err) {
+        throw (err);
+      }
+
+      res.send(item.day);
+    });
+  },
+
+  completeTask: function (req, res) {
     var self = this;
     var completedTasks = Object.keys(req.body);
 
     async.forEach(completedTasks, function taskIterator(completedTask, callback) {
-      self.taskDao.updateItem(completedTask, function(err) {
+      self.taskDao.updateItem(completedTask, function (err) {
         if (err) {
           callback(err);
         } else {
